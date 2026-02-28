@@ -1,10 +1,7 @@
 package br.com.medicationreminder.domain.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -13,7 +10,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tb_medications")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
