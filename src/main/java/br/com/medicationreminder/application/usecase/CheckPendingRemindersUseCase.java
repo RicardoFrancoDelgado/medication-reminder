@@ -1,5 +1,6 @@
 package br.com.medicationreminder.application.usecase;
 
+import br.com.medicationreminder.application.gateway.MessageGateway;
 import br.com.medicationreminder.domain.model.ReminderSession;
 import br.com.medicationreminder.domain.model.ReminderStatus;
 import br.com.medicationreminder.domain.repository.ReminderSessionRepository;

@@ -23,7 +23,7 @@ public class Medication {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private String user;
+    private User user;
 
     @Column(nullable = false)
     private String name;
