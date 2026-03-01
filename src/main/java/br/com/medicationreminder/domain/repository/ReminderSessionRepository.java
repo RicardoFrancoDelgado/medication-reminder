@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,5 +36,19 @@ public interface ReminderSessionRepository extends JpaRepository<ReminderSession
     """)
     Optional<ReminderSession> findLatestPendingSessionByWhatsappNumber(
             @Param("whatsappNumber") String whatsappNumber
+    );
+
+    @Query("""
+        SELECT COUNT(rs) > 0 FROM ReminderSession rs
+        WHERE rs.medication.id = :medicationId
+        AND rs.scheduledTime = :scheduledTime
+        AND rs.sentAt >= :startOfDay
+        AND rs.sentAt < :endOfDay
+    """)
+    boolean existsSessionForToday(
+            @Param("medicationId") UUID medicationId,
+            @Param("scheduledTime") LocalTime scheduledTime,
+            @Param("startOfDay") LocalDateTime startOfDay,
+            @Param("endOfDay") LocalDateTime endOfDay
     );
 }

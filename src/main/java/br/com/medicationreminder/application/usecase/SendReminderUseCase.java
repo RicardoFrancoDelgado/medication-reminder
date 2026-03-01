@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -33,6 +34,24 @@ public class SendReminderUseCase {
         }
 
         for (Medication medication : medications) {
+            LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
+            LocalDateTime endOfDay = startOfDay.plusDays(1);
+
+            boolean alreadySentToday = reminderSessionRepository.existsSessionForToday(
+                    medication.getId(),
+                    start,
+                    startOfDay,
+                    endOfDay
+            );
+
+            if (alreadySentToday) {
+                log.info("Lembrete já enviado hoje para {} - remédio: {}",
+                        medication.getUser().getName(),
+                        medication.getName()
+                );
+                continue;
+            }
+
             ReminderSession session = buildSession(medication, start);
             reminderSessionRepository.save(session);
 
