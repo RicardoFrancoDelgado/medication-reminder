@@ -30,7 +30,7 @@ public class Medication {
 
     @ElementCollection
     @CollectionTable(
-            name = "medication_scheduled_times",
+            name = "tb_medication_scheduled_times",
             joinColumns = @JoinColumn(name = "medication_id")
     )
     @Column(name = "scheduled_time", nullable = false)

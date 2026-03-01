@@ -16,7 +16,7 @@ public interface MedicationRepository extends JpaRepository<Medication, UUID> {
 
     @Query("""
         SELECT m FROM Medication m
-        JOIN m.scheduledTimes st
+        JOIN m.scheduleTimes st
         WHERE m.active = true
         AND st BETWEEN :start AND :end
     """)
